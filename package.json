@@ -1,0 +1,15 @@
+{
+  "name": "webrtc-voip",
+  "version": "1.0.0",
+  "description": "Voip using webrtc",
+  "main": "server.js",
+  "repository": "https://github.com/WV-no7/webrtc-voip.git",
+  "author": "WV-no7",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "express": "^4.17.2",
+    "peer": "^0.6.1",
+    "peerjs": "^1.3.2"
+  }
+}
