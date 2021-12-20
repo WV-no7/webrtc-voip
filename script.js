@@ -94,6 +94,22 @@ function showCallContent() {
 }
 
 /**
+ * Handle disconnect
+ */
+ function handlePeerDisconnect() {
+    // manually close the peer connections
+    for (let conns in peer.connections) {
+      peer.connections[conns].forEach((conn, index, array) => {
+        console.log(`closing ${conn.connectionId} peerConnection (${index + 1}/${array.length})`, conn.peerConnection);
+        conn.peerConnection.close();
+  
+        // close it using peerjs methods
+        if (conn.close)
+          conn.close();
+      });
+    }
+}
+/**
  * Connect the peers
  * @returns {void}
  */
@@ -143,6 +159,7 @@ peer.on('open', function () {
 peer.on('connection', function(connection){
     conn = connection;
     peer_id = connection.peer;
+
 });
 
 /**
@@ -159,7 +176,9 @@ peer.on('call', function(call) {
             setRemoteStream(stream);
         });
         conn.on('close', function (){
+            handlePeerDisconnect();
             showCallContent();
+            console.log("Call closed");
         })
     } else {
         console.log("call denied");
